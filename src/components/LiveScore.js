@@ -20,7 +20,7 @@ const LiveScore = ({ roundScore, currentRound }) => {
   
   return (
     <div className="live-score-container">
-      <h3>Live Score : {currentPlayer} is Playing...</h3>
+      <h3 class="custom-h3">Live Score : {currentPlayer} is Playing...</h3>
       <table>
         <thead>
           <tr>
