@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './GameBoard.css'; // Import the CSS file for styling
 import Scoreboard from './Scoreboard';
 import RoundCounter from './RoundCounter';
+import LiveScore from './LiveScore';
 
 const GameBoard = ({
   diceValues,
@@ -16,10 +17,13 @@ const GameBoard = ({
   playerScores,
   botScores,
   currentRound,
+  roundScore,
+  currentPlayerScores,
+  botCurrentScores
 }) => {
   const [isRolling, setIsRolling] = useState(false);
   const [rotationValues, setRotationValues] = useState({ x: 0, y: 0, z: 0 });
-
+  
   useEffect(() => {
     rollDice();
   }, []);
@@ -66,6 +70,8 @@ const GameBoard = ({
       <div key={index} className={`dot dot-${position}`} />
     ));
   };
+  // Function to determine the combination type based on round score
+  
 
   return (
     <div className='background-container'>
@@ -129,7 +135,11 @@ const GameBoard = ({
           </button>
         </div>
         <div className='scoreboard-container'>
-          <Scoreboard playerScores={playerScores} botScores={botScores} />
+          <Scoreboard currentPlayerScores={currentPlayerScores} botCurrentScores={botCurrentScores}/>
+        </div>
+        <div className='livescore-container'>
+          {/* Pass roundScore to Livescore component */}
+          <LiveScore roundScore={roundScore} currentRound={currentRound} />
         </div>
       </div>
     </div>

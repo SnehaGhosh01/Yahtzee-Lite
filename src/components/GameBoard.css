@@ -169,6 +169,13 @@
   width: 30%;
   height: 100%;
 }
+.livescore-container{
+  position: absolute;
+  top: 35vh;
+  right: 10px;
+  width: 30%;
+  height: 100%;
+}
 
 .dot {
   width: 10px;

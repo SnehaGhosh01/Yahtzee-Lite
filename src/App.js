@@ -22,7 +22,9 @@ const App = () => {
   const [rerollsLeft, setRerollsLeft] = useState(3); // Track number of rerolls left
   const [botTurnInProgress, setBotTurnInProgress] = useState(false);
   const [showEndGameModal, setShowEndGameModal] = useState(false);
-
+  const [roundScore, setRoundScore] = useState(false);
+  const [currentPlayerScores, setCurrentPlayerScores] = useState([]);
+  const [botCurrentScores, setBotCurrentScores] = useState([]);
   useEffect(() => {
     // Reset rerolls left at the start of each round
     setRerollsLeft(2);
@@ -69,15 +71,17 @@ const App = () => {
 
   const handlePlayerTurn = () => {
     // Calculate player's score for the current turn
+    rerollDice();
     const playerScoreThisTurn = calculateScore(diceValues);
 
     // Log player's score for the current turn
     console.log("Player's score this turn:", playerScoreThisTurn);
 
+    setRoundScore(playerScoreThisTurn); // Set roundScore=playerScoreThisTurn;
     // Update the player's total score
     const newPlayerScore = playerScore + playerScoreThisTurn;
     setPlayerScore(newPlayerScore);
-
+    setCurrentPlayerScores([...currentPlayerScores, playerScoreThisTurn]);
     // Update player scores array with the new score
     setPlayerScores([...playerScores, newPlayerScore]);
 
@@ -127,7 +131,8 @@ const App = () => {
 
       // Log bot's score for the current turn
       console.log("Bot's score this turn:", botScoreThisTurn);
-
+      setRoundScore(botScoreThisTurn); // Set roundScore=botScoreThisTurn;
+      setBotCurrentScores([...botCurrentScores, botScoreThisTurn]);
       // Update bot's total score
       const newBotScore = botScore + botScoreThisTurn;
       setBotScore(newBotScore);
@@ -137,7 +142,7 @@ const App = () => {
 
       // After bot's turn is complete, set bot turn in progress to false
       setBotTurnInProgress(false);
-    }, 1000); // Adjust delay as needed
+    }, 5000); // Adjust delay as needed
   };
 
   useEffect(() => {
@@ -190,19 +195,22 @@ const App = () => {
 
   return (
     <div>
-      <GameBoard
-        diceValues={diceValues}
-        selectedDice={selectedDice}
-        rollDice={rollDice}
-        handleDiceClick={handleDiceClick}
-        handlePlayerTurn={handlePlayerTurn}
-        rerollsLeft={rerollsLeft}
-        rerollDice={rerollDice}
-        botTurnInProgress={!isPlayerTurn || botTurnInProgress} // Disable buttons during bot's turn
-        playerScores={playerScores}
-        botScores={botScores}
-        currentRound={currentRound}
-      />
+       <GameBoard
+      diceValues={diceValues}
+      selectedDice={selectedDice}
+      rollDice={rollDice}
+      handleDiceClick={handleDiceClick}
+      handlePlayerTurn={handlePlayerTurn}
+      rerollsLeft={rerollsLeft}
+      rerollDice={rerollDice}
+      botTurnInProgress={!isPlayerTurn || botTurnInProgress} // Disable buttons during bot's turn
+      playerScores={playerScores}
+      botScores={botScores}
+      currentRound={currentRound}
+      roundScore={roundScore }
+      currentPlayerScores={currentPlayerScores} // Pass the score of the current round
+      botCurrentScores={botCurrentScores} // Pass the score of the current round
+    />
       {showEndGameModal && (
         <EndGameModal
           playerScore={playerScore}
@@ -216,6 +224,7 @@ const App = () => {
             setGameOver(false);
             setShowEndGameModal(false); // Close the end game modal
             setIsPlayerTurn(true); // Ensure player's turn is set to true
+            setRoundScore(0);
           }}
         />
       )}
