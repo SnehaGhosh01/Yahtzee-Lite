@@ -7,6 +7,7 @@ const EndGameModal = ({ playerScore, botScore, resetGame }) => {
 
   const closeModal = () => {
     setShowModal(false);
+    
   };
   const winner = playerScore > botScore ? "Player" : playerScore < botScore ? "Bot" : "Draw";
 

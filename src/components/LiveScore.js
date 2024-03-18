@@ -1,7 +1,6 @@
 import React from "react";
 import "./LiveScore.css";
 const LiveScore = ({ roundScore, currentRound }) => {
-    console.log(roundScore, currentRound);
   const currentPlayer = currentRound % 2 === 1 ? "Player" : "Bot";
   
   const determineCombinationType = () => {

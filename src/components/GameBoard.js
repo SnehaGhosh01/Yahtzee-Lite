@@ -19,7 +19,9 @@ const GameBoard = ({
   currentRound,
   roundScore,
   currentPlayerScores,
-  botCurrentScores
+  botCurrentScores,
+  resetGame,
+  endgame,
 }) => {
   const [isRolling, setIsRolling] = useState(false);
   const [rotationValues, setRotationValues] = useState({ x: 0, y: 0, z: 0 });
@@ -70,8 +72,6 @@ const GameBoard = ({
       <div key={index} className={`dot dot-${position}`} />
     ));
   };
-  // Function to determine the combination type based on round score
-  
 
   return (
     <div className='background-container'>
@@ -133,9 +133,21 @@ const GameBoard = ({
           >
             End Turn
           </button>
+          {currentRound >= 6 && endgame && (
+            <button
+              variant="contained"
+              onClick={resetGame}
+              className="mui-button reset-button"
+            >
+              Reset
+            </button>
+          )}
         </div>
         <div className='scoreboard-container'>
-          <Scoreboard currentPlayerScores={currentPlayerScores} botCurrentScores={botCurrentScores}/>
+          <Scoreboard
+            currentPlayerScores={currentPlayerScores}
+            botCurrentScores={botCurrentScores}
+          />
         </div>
         <div className='livescore-container'>
           {/* Pass roundScore to Livescore component */}

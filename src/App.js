@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import GameBoard from './components/GameBoard';
-import Scoreboard from './components/Scoreboard';
-import RoundCounter from './components/RoundCounter';
-import EndGameModal from './components/EndGameModal';
+import React, { useState, useEffect } from "react";
+import GameBoard from "./components/GameBoard";
+import Scoreboard from "./components/Scoreboard";
+import RoundCounter from "./components/RoundCounter";
+import EndGameModal from "./components/EndGameModal";
 import {
   checkFullHouse,
   checkSmallStraight,
   checkFullStraight,
-} from './components/Utils';
+} from "./components/Utils";
 
 const App = () => {
   const [diceValues, setDiceValues] = useState([]);
@@ -25,6 +25,7 @@ const App = () => {
   const [roundScore, setRoundScore] = useState(false);
   const [currentPlayerScores, setCurrentPlayerScores] = useState([]);
   const [botCurrentScores, setBotCurrentScores] = useState([]);
+  const [endgame, setEndgame] = useState(false);
   useEffect(() => {
     // Reset rerolls left at the start of each round
     setRerollsLeft(2);
@@ -52,20 +53,20 @@ const App = () => {
   };
 
   const calculateScore = (diceValues) => {
-    console.log('Calculating score for dice values:', diceValues);
+    console.log("Calculating score for dice values:", diceValues);
 
     if (checkFullStraight(diceValues)) {
-      console.log('Full Straight detected');
+      console.log("Full Straight detected");
       return 40; // Score for Full Straight
     } else if (checkSmallStraight(diceValues)) {
-      console.log('Small Straight detected');
+      console.log("Small Straight detected");
       return 30; // Score for Small Straight
     } else if (checkFullHouse(diceValues)) {
-      console.log('Full House detected');
+      console.log("Full House detected");
       return 25; // Score for Full House
     }
 
-    console.log('No scoring combination detected');
+    console.log("No scoring combination detected");
     return 0; // No scoring combination
   };
 
@@ -105,40 +106,85 @@ const App = () => {
   };
 
   const handleBotTurn = () => {
-    rollDice(); // Simulate bot's logic for rolling dice
+    rollDice(); // Roll the dice for the bot's turn
+    const newDiceValues = diceValues.map(
+      () => Math.floor(Math.random() * 6) + 1
+    );
+    console.log("Bot's roll:", newDiceValues);
+
     setTimeout(() => {
-      const newSelectedDice = [];
-      for (let i = 0; i < diceValues.length; i++) {
-        if (Math.random() < 0.5) {
-          // Randomly select some dice
-          newSelectedDice.push(i);
-        }
+      // Check for immediate scoring combinations after the first roll
+      const initialScore = calculateScore(newDiceValues);
+      console.log("Bot's score after first roll:", initialScore);
+
+      // If there's an immediate scoring combination, keep those dice and end the turn
+      if (initialScore > 0) {
+        console.log("Bot scored on the first roll. Keeping the dice.");
+        const newBotScore = botScore + initialScore;
+        setBotScore(newBotScore);
+        setBotCurrentScores([...botCurrentScores, initialScore]);
+        setBotScores([...botScores, newBotScore]);
+        setBotTurnInProgress(false);
+        return;
       }
 
-      // Reroll unselected dice
-      const newDiceValues = diceValues.map((value, index) => {
-        if (!newSelectedDice.includes(index)) {
-          return Math.floor(Math.random() * 6) + 1; // Reroll the unselected dice
+      // If no immediate scoring combination, proceed with selecting dice for reroll
+      let selectedIndices = [];
+      let rerollCount = 0;
+      let rollCount = 0;
+      let score = 0;
+      while (score === 0 && rollCount < 2) {
+        // Check for consecutive dice values and select them
+        for (let i = 0; i < newDiceValues.length - 1; i++) {
+          if (newDiceValues[i] + 1 === newDiceValues[i + 1]) {
+            selectedIndices.push(i, i + 1);
+            rerollCount += 3; // Rerolling the remaining dice
+            break; // Only select the first consecutive pair found
+          }
         }
-        return value; // Keep the selected dice value
-      });
 
-      // Log bot's dice values
-      console.log("Bot's dice values:", newDiceValues);
+        // If no consecutive dice, select the same two dice if available
+        if (selectedIndices.length === 0) {
+          for (let i = 0; i < newDiceValues.length - 1; i++) {
+            if (newDiceValues[i] === newDiceValues[i + 1]) {
+              selectedIndices.push(i, i + 1);
+              rerollCount += 3; // Rerolling the remaining dice
+              break; // Only select the first pair found
+            }
+          }
+        }
+
+        // If no consecutive or same dice pair, select the first two dice
+        if (selectedIndices.length === 0) {
+          selectedIndices = [0, 1];
+          rerollCount = 3; // Rerolling the remaining dice
+        }
+
+        // Apply the selected action
+        const newSelectedDice = selectedIndices;
+
+        // Reroll unselected dice
+        const newDiceValuesAfterReroll = newDiceValues.map((value, index) => {
+          if (!newSelectedDice.includes(index)) {
+            return Math.floor(Math.random() * 6) + 1; // Reroll the unselected dice
+          }
+          return value; // Keep the selected dice value
+        });
+        rollCount++;
+        score = calculateScore(newDiceValuesAfterReroll);
+        console.log("Bot's score after reroll:", score);
+      }
 
       // Calculate bot's score for the current turn
-      const botScoreThisTurn = calculateScore(newDiceValues);
-
-      // Log bot's score for the current turn
+      const botScoreThisTurn = score;
       console.log("Bot's score this turn:", botScoreThisTurn);
-      setRoundScore(botScoreThisTurn); // Set roundScore=botScoreThisTurn;
-      setBotCurrentScores([...botCurrentScores, botScoreThisTurn]);
+
       // Update bot's total score
       const newBotScore = botScore + botScoreThisTurn;
+      setBotCurrentScores([...botCurrentScores, botScoreThisTurn]);
       setBotScore(newBotScore);
-
-      // Update bot scores array with the new score
       setBotScores([...botScores, newBotScore]);
+      setRoundScore(botScoreThisTurn);
 
       // After bot's turn is complete, set bot turn in progress to false
       setBotTurnInProgress(false);
@@ -149,7 +195,7 @@ const App = () => {
     // Check if game is over after current round is updated
     if (!isPlayerTurn && !botTurnInProgress) {
       // Increment the round
-      console.log('Current round of bot:', currentRound); // Here you should see the updated round
+      console.log("Current round of bot:", currentRound); // Here you should see the updated round
       const isGameOver = checkGameOver();
       if (!isGameOver) {
         setIsPlayerTurn(true);
@@ -183,11 +229,12 @@ const App = () => {
       // Determine the winner based on scores
       const winner =
         playerScore > botScore
-          ? 'Player'
+          ? "Player"
           : playerScore < botScore
-          ? 'Bot'
-          : 'Draw';
+          ? "Bot"
+          : "Draw";
       setShowEndGameModal(true); // Show the end game modal
+      setEndgame(true);
       return true; // Game is over
     }
     return false; // Game is not over
@@ -195,22 +242,37 @@ const App = () => {
 
   return (
     <div>
-       <GameBoard
-      diceValues={diceValues}
-      selectedDice={selectedDice}
-      rollDice={rollDice}
-      handleDiceClick={handleDiceClick}
-      handlePlayerTurn={handlePlayerTurn}
-      rerollsLeft={rerollsLeft}
-      rerollDice={rerollDice}
-      botTurnInProgress={!isPlayerTurn || botTurnInProgress} // Disable buttons during bot's turn
-      playerScores={playerScores}
-      botScores={botScores}
-      currentRound={currentRound}
-      roundScore={roundScore }
-      currentPlayerScores={currentPlayerScores} // Pass the score of the current round
-      botCurrentScores={botCurrentScores} // Pass the score of the current round
-    />
+      <GameBoard
+        diceValues={diceValues}
+        selectedDice={selectedDice}
+        rollDice={rollDice}
+        handleDiceClick={handleDiceClick}
+        handlePlayerTurn={handlePlayerTurn}
+        rerollsLeft={rerollsLeft}
+        rerollDice={rerollDice}
+        botTurnInProgress={!isPlayerTurn || botTurnInProgress} // Disable buttons during bot's turn
+        playerScores={playerScores}
+        botScores={botScores}
+        currentRound={currentRound}
+        roundScore={roundScore}
+        currentPlayerScores={currentPlayerScores} // Pass the score of the current round
+        botCurrentScores={botCurrentScores} 
+        endgame={endgame} // Pass the score of the current round
+        resetGame={() => {
+          setPlayerScore(0);
+          setBotScore(0);
+          setCurrentRound(1);
+          setPlayerScores([]);
+          setBotScores([]);
+          setBotCurrentScores([]);
+          setCurrentPlayerScores([]);
+          setGameOver(false);
+          setShowEndGameModal(false); // Close the end game modal
+          setIsPlayerTurn(true); // Ensure player's turn is set to true
+          setRoundScore(0);
+          setEndgame(false);
+        }}
+      />
       {showEndGameModal && (
         <EndGameModal
           playerScore={playerScore}
@@ -221,10 +283,13 @@ const App = () => {
             setCurrentRound(1);
             setPlayerScores([]);
             setBotScores([]);
+            setBotCurrentScores([]);
+            setCurrentPlayerScores([]);
             setGameOver(false);
             setShowEndGameModal(false); // Close the end game modal
             setIsPlayerTurn(true); // Ensure player's turn is set to true
             setRoundScore(0);
+            setEndgame(false);
           }}
         />
       )}
