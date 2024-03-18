@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Yahtzee-Lite/static/css/main.66dabbf0.css",
-    "main.js": "/Yahtzee-Lite/static/js/main.3ef277f6.js",
+    "main.css": "/Yahtzee-Lite/static/css/main.1e24a3ba.css",
+    "main.js": "/Yahtzee-Lite/static/js/main.a08c12e9.js",
     "static/js/453.b01600fb.chunk.js": "/Yahtzee-Lite/static/js/453.b01600fb.chunk.js",
     "static/media/PlayZoneBackground3.jpg": "/Yahtzee-Lite/static/media/PlayZoneBackground3.e0a60bcf791114899e81.jpg",
     "static/media/background1.jpg": "/Yahtzee-Lite/static/media/background1.3afec5dea65ead5f6d4d.jpg",
     "index.html": "/Yahtzee-Lite/index.html",
-    "main.66dabbf0.css.map": "/Yahtzee-Lite/static/css/main.66dabbf0.css.map",
-    "main.3ef277f6.js.map": "/Yahtzee-Lite/static/js/main.3ef277f6.js.map",
+    "main.1e24a3ba.css.map": "/Yahtzee-Lite/static/css/main.1e24a3ba.css.map",
+    "main.a08c12e9.js.map": "/Yahtzee-Lite/static/js/main.a08c12e9.js.map",
     "453.b01600fb.chunk.js.map": "/Yahtzee-Lite/static/js/453.b01600fb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.66dabbf0.css",
-    "static/js/main.3ef277f6.js"
+    "static/css/main.1e24a3ba.css",
+    "static/js/main.a08c12e9.js"
   ]
 }
