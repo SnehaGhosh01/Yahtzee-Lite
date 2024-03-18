@@ -3,7 +3,7 @@
     top: cal(30px+30vh);
     right: 50px;
     width: 30%;
-    height: 39vh;
+    height: 36vh;
     background-color: #f9f9f9; /* Light gray background color */
     border: 2px solid #ddd;
     border-radius: 10px;
@@ -23,7 +23,7 @@
   }
   
   th, td {
-    padding: 13px; /* Increased padding for taller rows */
+    padding: 15px; /* Increased padding for taller rows */
     text-align: center;
   }
   
