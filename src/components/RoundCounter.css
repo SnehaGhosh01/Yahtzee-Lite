@@ -2,7 +2,7 @@
     position: absolute; /* Position the component relative to the browser window */
    width:50%; /* Distance from the left edge of the window */
    height: 100px;
-    background-image:url('../Image/PlayZoneBackground1.jpg') ;
+    /* background-image:url('../Image/PlayZoneBackground3.jpg') ; */
   }
   .h3{
     margin: 0;

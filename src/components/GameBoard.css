@@ -67,7 +67,7 @@
   border: 2px solid #ccc;
   padding: 20px;
   box-sizing: border-box;
-  background-image: url('../Image/PlayZoneBackground1.jpg');
+  background-image: url('../Image/PlayZoneBackground3.jpg');
   background-size: cover;
 }
 
@@ -85,7 +85,7 @@
   border-radius: 20px;
   border-bottom: 1px solid #efdec9;
   border-right: 1px solid #e2cbaf;
-  background-image: url('../Image/background.jpg');
+  background-image: url('../Image/background1.jpg');
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -151,7 +151,7 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('../Image/background.jpg');
+  background-image: url('../Image/background1.jpg');
   background-size: cover;
   background-position: center;
 }

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import GameBoard from "./components/GameBoard";
-import Scoreboard from "./components/Scoreboard";
-import RoundCounter from "./components/RoundCounter";
-import EndGameModal from "./components/EndGameModal";
+import React, { useState, useEffect } from 'react';
+import GameBoard from './components/GameBoard';
+import Scoreboard from './components/Scoreboard';
+import RoundCounter from './components/RoundCounter';
+import EndGameModal from './components/EndGameModal';
 import {
   checkFullHouse,
   checkSmallStraight,
   checkFullStraight,
-} from "./components/Utils";
+} from './components/Utils';
 
 const App = () => {
   const [diceValues, setDiceValues] = useState([]);
@@ -25,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     // Reset rerolls left at the start of each round
-    setRerollsLeft(3);
+    setRerollsLeft(2);
   }, [currentRound]);
 
   const rollDice = () => {
@@ -50,20 +50,20 @@ const App = () => {
   };
 
   const calculateScore = (diceValues) => {
-    console.log("Calculating score for dice values:", diceValues);
+    console.log('Calculating score for dice values:', diceValues);
 
     if (checkFullStraight(diceValues)) {
-      console.log("Full Straight detected");
+      console.log('Full Straight detected');
       return 40; // Score for Full Straight
     } else if (checkSmallStraight(diceValues)) {
-      console.log("Small Straight detected");
+      console.log('Small Straight detected');
       return 30; // Score for Small Straight
     } else if (checkFullHouse(diceValues)) {
-      console.log("Full House detected");
+      console.log('Full House detected');
       return 25; // Score for Full House
     }
 
-    console.log("No scoring combination detected");
+    console.log('No scoring combination detected');
     return 0; // No scoring combination
   };
 
@@ -110,7 +110,7 @@ const App = () => {
           newSelectedDice.push(i);
         }
       }
-  
+
       // Reroll unselected dice
       const newDiceValues = diceValues.map((value, index) => {
         if (!newSelectedDice.includes(index)) {
@@ -118,33 +118,33 @@ const App = () => {
         }
         return value; // Keep the selected dice value
       });
-  
+
       // Log bot's dice values
       console.log("Bot's dice values:", newDiceValues);
-  
+
       // Calculate bot's score for the current turn
       const botScoreThisTurn = calculateScore(newDiceValues);
-  
+
       // Log bot's score for the current turn
       console.log("Bot's score this turn:", botScoreThisTurn);
-  
+
       // Update bot's total score
       const newBotScore = botScore + botScoreThisTurn;
       setBotScore(newBotScore);
-  
+
       // Update bot scores array with the new score
       setBotScores([...botScores, newBotScore]);
-  
+
       // After bot's turn is complete, set bot turn in progress to false
       setBotTurnInProgress(false);
     }, 1000); // Adjust delay as needed
   };
-  
+
   useEffect(() => {
     // Check if game is over after current round is updated
     if (!isPlayerTurn && !botTurnInProgress) {
-       // Increment the round
-      console.log("Current round of bot:", currentRound); // Here you should see the updated round
+      // Increment the round
+      console.log('Current round of bot:', currentRound); // Here you should see the updated round
       const isGameOver = checkGameOver();
       if (!isGameOver) {
         setIsPlayerTurn(true);
@@ -152,7 +152,6 @@ const App = () => {
       }
     }
   }, [isPlayerTurn, botTurnInProgress]);
-  
 
   const rerollDice = () => {
     // Check if rerolls are available
@@ -177,7 +176,12 @@ const App = () => {
     if (currentRound >= 6) {
       setGameOver(true);
       // Determine the winner based on scores
-      const winner = playerScore > botScore ? "Player" : playerScore < botScore ? "Bot" : "Draw";
+      const winner =
+        playerScore > botScore
+          ? 'Player'
+          : playerScore < botScore
+          ? 'Bot'
+          : 'Draw';
       setShowEndGameModal(true); // Show the end game modal
       return true; // Game is over
     }
@@ -186,20 +190,19 @@ const App = () => {
 
   return (
     <div>
-      
       <GameBoard
-      diceValues={diceValues}
-      selectedDice={selectedDice}
-      rollDice={rollDice}
-      handleDiceClick={handleDiceClick}
-      handlePlayerTurn={handlePlayerTurn}
-      rerollsLeft={rerollsLeft}
-      rerollDice={rerollDice}
-      botTurnInProgress={!isPlayerTurn || botTurnInProgress} // Disable buttons during bot's turn
-      playerScores={playerScores}
-      botScores={botScores}
-      currentRound={currentRound}
-    />
+        diceValues={diceValues}
+        selectedDice={selectedDice}
+        rollDice={rollDice}
+        handleDiceClick={handleDiceClick}
+        handlePlayerTurn={handlePlayerTurn}
+        rerollsLeft={rerollsLeft}
+        rerollDice={rerollDice}
+        botTurnInProgress={!isPlayerTurn || botTurnInProgress} // Disable buttons during bot's turn
+        playerScores={playerScores}
+        botScores={botScores}
+        currentRound={currentRound}
+      />
       {showEndGameModal && (
         <EndGameModal
           playerScore={playerScore}
@@ -213,7 +216,7 @@ const App = () => {
             setGameOver(false);
             setShowEndGameModal(false); // Close the end game modal
             setIsPlayerTurn(true); // Ensure player's turn is set to true
-          }}          
+          }}
         />
       )}
     </div>
