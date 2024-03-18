@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Yahtzee-Lite/static/css/main.5381d19b.css",
+    "main.css": "/Yahtzee-Lite/static/css/main.66dabbf0.css",
     "main.js": "/Yahtzee-Lite/static/js/main.3ef277f6.js",
     "static/js/453.b01600fb.chunk.js": "/Yahtzee-Lite/static/js/453.b01600fb.chunk.js",
     "static/media/PlayZoneBackground3.jpg": "/Yahtzee-Lite/static/media/PlayZoneBackground3.e0a60bcf791114899e81.jpg",
     "static/media/background1.jpg": "/Yahtzee-Lite/static/media/background1.3afec5dea65ead5f6d4d.jpg",
     "index.html": "/Yahtzee-Lite/index.html",
-    "main.5381d19b.css.map": "/Yahtzee-Lite/static/css/main.5381d19b.css.map",
+    "main.66dabbf0.css.map": "/Yahtzee-Lite/static/css/main.66dabbf0.css.map",
     "main.3ef277f6.js.map": "/Yahtzee-Lite/static/js/main.3ef277f6.js.map",
     "453.b01600fb.chunk.js.map": "/Yahtzee-Lite/static/js/453.b01600fb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5381d19b.css",
+    "static/css/main.66dabbf0.css",
     "static/js/main.3ef277f6.js"
   ]
 }
