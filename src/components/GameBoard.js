@@ -39,7 +39,6 @@ const GameBoard = ({
   };
 
   const renderDots = (value) => {
-    console.log(value);
     // Define the positions of dots for each dice face
     const dotPositions = {
       1: ['middle-center'],
