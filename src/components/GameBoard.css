@@ -60,6 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 20px;
   position: fixed;
   top: 30px; /* Start just after the RoundCounter with additional spacing */
   left: 0;
@@ -79,10 +80,16 @@
   border: 2px solid #ccc;
   margin: 30px 0;
   box-sizing: border-box;
-  background-image: url('../Image/PlayZoneBackground.jpg');
+  box-shadow: 10px 30px 60px -10px rgba(0, 0, 0, 0.4) inset,
+    5px 5px 10px -5px rgba(0, 0, 0, 0.2) inset;
+  border-radius: 20px;
+  border-bottom: 1px solid #efdec9;
+  border-right: 1px solid #e2cbaf;
+  background-image: url('../Image/background.jpg');
   background-size: cover;
   display: flex;
   justify-content: center;
+  background-position: -20px 0;
   align-items: center;
 }
 
@@ -128,9 +135,7 @@
   position: absolute;
   bottom: -95px; /* Adjust the distance from the bottom */
   left: 40%; /* Align the buttons to the center horizontally */
-  transform: translateX(
-    -50%
-  ); 
+  transform: translateX(-50%);
   display: flex;
   gap: 10px; /* Add some space between the buttons */
 }
