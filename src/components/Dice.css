@@ -1,0 +1,13 @@
+/* Dice.css */
+.animated-die {
+    animation: roll 1s ease-in-out forwards;
+  }
+  
+  @keyframes roll {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(360deg); }
+    50% { transform: rotate(720deg); }
+    75% { transform: rotate(1080deg); }
+    100% { transform: rotate(1440deg); }
+  }
+  

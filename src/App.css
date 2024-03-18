@@ -1,0 +1,70 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+/* App.css */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dice-container {
+  width: 50px; /* Adjust width as needed */
+  height: 50px; /* Adjust height as needed */
+  perspective: 1000px; /* Perspective for 3D effect */
+}
+
+.dice {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px;
+  animation: roll 1s ease-in-out; /* Apply rolling animation */
+}
+
+@keyframes roll {
+  0% {
+    transform: rotateX(0deg) rotateY(0deg); /* Initial rotation */
+  }
+  100% {
+    transform: rotateX(360deg) rotateY(360deg); /* Final rotation */
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
