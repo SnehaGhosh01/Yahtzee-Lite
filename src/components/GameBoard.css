@@ -190,15 +190,16 @@
 
 .dot-middle-left {
   top: 50%;
-  left: 50%;
+  left: 23%; /* Adjust the left position as needed */
   transform: translate(-50%, -50%);
 }
 
 .dot-middle-right {
   top: 50%;
-  right: 50%;
+  right: 23%; /* Adjust the right position as needed */
   transform: translate(50%, -50%);
 }
+
 
 .dot-middle-center {
   top: 50%;
