@@ -36,6 +36,5 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Live Demo
 
-You can see a live demo 
-1. [Github Pages](snehaghosh01.github.io/Yahtzee-Lite/).
-2. [Netlify](https://yahtzee-lite.netlify.app).
+You can see a live demo [Github Pages](https://snehaghosh01.github.io/Yahtzee-Lite/).
+
