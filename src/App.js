@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import GameBoard from "./components/GameBoard";
-import Scoreboard from "./components/Scoreboard";
-import RoundCounter from "./components/RoundCounter";
-import EndGameModal from "./components/EndGameModal";
+import React, { useState, useEffect } from 'react';
+import GameBoard from './components/GameBoard';
+import EndGameModal from './components/EndGameModal';
 import {
   checkFullHouse,
   checkSmallStraight,
   checkFullStraight,
-} from "./components/Utils";
+} from './components/Utils';
 
 const App = () => {
   const [diceValues, setDiceValues] = useState([]);
@@ -53,20 +51,20 @@ const App = () => {
   };
 
   const calculateScore = (diceValues) => {
-    console.log("Calculating score for dice values:", diceValues);
+    console.log('Calculating score for dice values:', diceValues);
 
     if (checkFullStraight(diceValues)) {
-      console.log("Full Straight detected");
+      console.log('Full Straight detected');
       return 40; // Score for Full Straight
     } else if (checkSmallStraight(diceValues)) {
-      console.log("Small Straight detected");
+      console.log('Small Straight detected');
       return 30; // Score for Small Straight
     } else if (checkFullHouse(diceValues)) {
-      console.log("Full House detected");
+      console.log('Full House detected');
       return 25; // Score for Full House
     }
 
-    console.log("No scoring combination detected");
+    console.log('No scoring combination detected');
     return 0; // No scoring combination
   };
 
@@ -119,7 +117,7 @@ const App = () => {
 
       // If there's an immediate scoring combination, keep those dice and end the turn
       if (initialScore > 0) {
-        console.log("Bot scored on the first roll. Keeping the dice.");
+        console.log('Bot scored on the first roll. Keeping the dice.');
         const newBotScore = botScore + initialScore;
         setBotScore(newBotScore);
         setBotCurrentScores([...botCurrentScores, initialScore]);
@@ -195,11 +193,12 @@ const App = () => {
     // Check if game is over after current round is updated
     if (!isPlayerTurn && !botTurnInProgress) {
       // Increment the round
-      console.log("Current round of bot:", currentRound); // Here you should see the updated round
+      console.log('Current round of bot:', currentRound); // Here you should see the updated round
       const isGameOver = checkGameOver();
       if (!isGameOver) {
         setIsPlayerTurn(true);
         setCurrentRound((prevRound) => prevRound + 1); // Switch to player's turn after bot's turn is complete
+        rerollDice();
       }
     }
   }, [isPlayerTurn, botTurnInProgress]);
@@ -229,10 +228,10 @@ const App = () => {
       // Determine the winner based on scores
       const winner =
         playerScore > botScore
-          ? "Player"
+          ? 'Player'
           : playerScore < botScore
-          ? "Bot"
-          : "Draw";
+          ? 'Bot'
+          : 'Draw';
       setShowEndGameModal(true); // Show the end game modal
       setEndgame(true);
       return true; // Game is over
@@ -256,7 +255,7 @@ const App = () => {
         currentRound={currentRound}
         roundScore={roundScore}
         currentPlayerScores={currentPlayerScores} // Pass the score of the current round
-        botCurrentScores={botCurrentScores} 
+        botCurrentScores={botCurrentScores}
         endgame={endgame} // Pass the score of the current round
         resetGame={() => {
           setPlayerScore(0);
