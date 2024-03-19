@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './GameBoard.css'; 
+import './GameBoard.css';
 import Scoreboard from './Scoreboard';
 import RoundCounter from './RoundCounter';
 import LiveScore from './LiveScore';
@@ -25,7 +25,7 @@ const GameBoard = ({
 }) => {
   const [isRolling, setIsRolling] = useState(false);
   const [rotationValues, setRotationValues] = useState({ x: 0, y: 0, z: 0 });
-  
+
   useEffect(() => {
     rollDice();
   }, []);
@@ -84,7 +84,11 @@ const GameBoard = ({
               !selectedDice.includes(index) && (
                 <div
                   key={`rest-${value}-${index}`}
-                  onClick={() => handleDiceClick(index)}
+                  onClick={
+                    isPlayerTurn && !botTurnInProgress
+                      ? () => handleDiceClick(index)
+                      : null
+                  }
                   className={`die-${value} animated-die ${
                     isRolling ? 'roll-animation' : ''
                   }`}
@@ -103,6 +107,7 @@ const GameBoard = ({
               )
           )}
         </div>
+
         <div className='rest-zone'>
           {selectedDice.map((index) => (
             <button
@@ -135,9 +140,9 @@ const GameBoard = ({
           </button>
           {currentRound >= 6 && endgame && (
             <button
-              variant="contained"
+              variant='contained'
               onClick={resetGame}
-              className="mui-button reset-button"
+              className='mui-button reset-button'
             >
               Reset
             </button>
