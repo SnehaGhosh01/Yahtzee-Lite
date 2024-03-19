@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './GameBoard.css'; // Import the CSS file for styling
+import './GameBoard.css'; 
 import Scoreboard from './Scoreboard';
 import RoundCounter from './RoundCounter';
 import LiveScore from './LiveScore';

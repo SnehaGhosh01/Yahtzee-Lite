@@ -1,6 +1,5 @@
-// Dice.js
 import React from 'react';
-import './Dice.css'; // Import the CSS file for styling
+import './Dice.css';
 
 const Dice = ({ dice }) => {
   return (
