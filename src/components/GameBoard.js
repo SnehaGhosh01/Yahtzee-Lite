@@ -77,18 +77,17 @@ const GameBoard = ({
     <div className='background-container'>
       <div className='game-title'>Yahtzee Lite</div>
       <div className='game-board'>
-        <div className='play-zone'>
+        <div
+          className='play-zone'
+          style={{ pointerEvents: botTurnInProgress ? 'none' : 'auto' }}
+        >
           <RoundCounter currentRound={currentRound} />
           {diceValues.map(
             (value, index) =>
               !selectedDice.includes(index) && (
                 <div
                   key={`rest-${value}-${index}`}
-                  onClick={
-                    isPlayerTurn && !botTurnInProgress
-                      ? () => handleDiceClick(index)
-                      : null
-                  }
+                  onClick={() => !botTurnInProgress && handleDiceClick(index)}
                   className={`die-${value} animated-die ${
                     isRolling ? 'roll-animation' : ''
                   }`}
@@ -107,7 +106,6 @@ const GameBoard = ({
               )
           )}
         </div>
-
         <div className='rest-zone'>
           {selectedDice.map((index) => (
             <button
