@@ -4,6 +4,7 @@ const LiveScore = ({ roundScore, currentRound }) => {
   const currentPlayer = currentRound % 2 === 1 ? "Player" : "Bot";
   
   const determineCombinationType = () => {
+    console.log("Round Score:", roundScore);
     if (roundScore === 30) {
       return "Small Straight";
     } else if (roundScore === 40) {

@@ -20,7 +20,7 @@ const App = () => {
   const [rerollsLeft, setRerollsLeft] = useState(3); // Track number of rerolls left
   const [botTurnInProgress, setBotTurnInProgress] = useState(false);
   const [showEndGameModal, setShowEndGameModal] = useState(false);
-  const [roundScore, setRoundScore] = useState(false);
+  const [roundScore, setRoundScore] = useState(0);
   const [currentPlayerScores, setCurrentPlayerScores] = useState([]);
   const [botCurrentScores, setBotCurrentScores] = useState([]);
   const [endgame, setEndgame] = useState(false);
