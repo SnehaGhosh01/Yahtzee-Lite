@@ -122,6 +122,7 @@ const App = () => {
         setBotScore(newBotScore);
         setBotCurrentScores([...botCurrentScores, initialScore]);
         setBotScores([...botScores, newBotScore]);
+        setRoundScore(initialScore);
         setBotTurnInProgress(false);
         return;
       }
